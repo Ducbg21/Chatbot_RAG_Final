@@ -1,0 +1,42 @@
+{% load static %}
+
+
+<script>
+    var hostUrl = "assets/";
+    var defaultLocale = "vn";
+</script>
+<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+<script src="/static/jetpro/assets/plugins/global/plugins.bundle.js"></script>
+<script src="/static/jetpro/assets/plugins/global/plugins.bundle.more.js"></script>
+<script src="/static/jetpro/assets/js/scripts.bundle.js"></script>
+<!--end::Global Javascript Bundle-->
+<!--begin::Vendors Javascript(used for this page only)-->
+<script src="/static/jetpro/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="/static/jetpro/assets/js/widgets.bundle.js"></script>
+<script src="/static/jetpro/assets/js/custom/widgets.js"></script>
+
+{%if request.user.is_system_admin_user == True%}
+<script src="/static/jetpro/assets/js/tnv-support-admin-user.js"></script>
+{%elif request.user.is_editor_user == True%}
+<script src="/static/jetpro/assets/js/tnv-support-editor-user.js"></script>
+{%else%}
+<script src="/static/jetpro/assets/js/tnv-support-normal-user.js"></script>
+{%endif%}
+
+<script src="/static/jetpro/assets/plugins/custom/ckeditor/ckeditor-document.bundle.js"></script>
+<script src="/static/jetpro/assets/js/custom/apps/chat/chat.js"></script>
+<script src="/static/jetpro/assets/plugins/custom/cookiealert/cookiealert.bundle.js"></script>
+<script src="/static/AccountManagement/jetpro/admin/js/my_account/my_account_change_password.js"></script>
+
+<!--end::Vendors Javascript-->
+<!--begin::Custom Javascript(used for this page only)-->
+<!-- <script src="static/jetpro/assets/jetpro/js/custom/apps/user-management/users/list/table.js"></script>
+<script src="static/jetpro/assets/jetpro/js/custom/apps/user-management/users/list/export-users.js"></script>
+<script src="static/jetpro/assets/jetpro/js/custom/apps/user-management/users/list/add.js"></script>
+<script src="static/jetpro/assets/jetpro/js/widgets.bundle.js"></script>
+<script src="static/jetpro/assets/jetpro/js/custom/widgets.js"></script>
+<script src="static/jetpro/assets/jetpro/js/custom/apps/chat/chat.js"></script>
+<script src="static/jetpro/assets/jetpro/js/custom/utilities/modals/upgrade-plan.js"></script>
+<script src="static/jetpro/assets/jetpro/js/custom/utilities/modals/users-search.js"></script> -->
+<!--end::Custom Javascript-->
+<!--end::Javascript-->

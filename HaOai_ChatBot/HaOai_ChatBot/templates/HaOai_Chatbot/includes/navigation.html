@@ -1,0 +1,680 @@
+{% load static %}
+{% load i18n %}
+{% load tz %}
+{% load humanize %}
+
+<!--begin::Aside-->
+<div id="kt_aside" class="aside aside-extended" data-kt-drawer="true" data-kt-drawer-name="aside"
+     data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="auto"
+     data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_toggle">
+    <!--begin::Primary-->
+    <div class="aside-primary d-flex flex-column align-items-lg-center flex-row-auto">
+        <!--begin::Logo-->
+        <div class="aside-logo d-none d-lg-flex flex-column align-items-center flex-column-auto pt-5"
+             id="kt_aside_logo">
+            {% if logo_direct_link %}
+                <a href="{{ logo_direct_link }}">
+            {% else %}
+                <a href="/">
+            {% endif %}
+
+            {% if this_application and this_application.logo_img %}
+                <img src="{{ this_application.logo_img.url }}" class="min-h-40px h-40px"/>
+            {% else %}
+                <img alt="Logo" src="/static/jetpro/assets/media/logos/qlvbqp-icon.png" class="min-h-40px h-40px"/>
+            {% endif %}
+            </a>
+        </div>
+        <!--end::Logo-->
+
+        <!--begin::Input-->
+        <!-- <input type="text" id="org_app_prefixId" label="org_app_prefixId" disabled class="form-control form-control-solid d-none" placeholder="org_app_prefixId" name="uuid" value="{{org_app_prefix}}" /> -->
+        <!-- <input type="text" id="org_app_prefix" label="org_app_prefix" disabled class="form-control form-control-solid d-none" placeholder="org_app_prefix" name="uuid" value="{{org_app_prefix}}" /> -->
+        {% if org_app_work_prefix %}
+            <input type="text" id="org_app_work_prefix" label="org_app_work_prefix" disabled
+                   class="form-control form-control-solid d-none" placeholder="org_app_work_prefix" name="uuid"
+                   value="{{ org_app_work_prefix }}"/>
+        {% endif %}
+        {% if org_app_work_direct %}
+            <input type="text" id="org_app_work_direct" label="org_app_work_direct" disabled
+                   class="form-control form-control-solid d-none" placeholder="org_app_work_direct" name="uuid"
+                   value="{{ org_app_work_direct }}"/>
+        {% endif %}
+        <!--end::Input-->
+
+        <!--begin::Nav-->
+        <div class="aside-nav d-flex flex-column flex-column-fluid w-100 py-5" id="kt_aside_nav">
+            <!--begin::Aside Primary Menu Wrapper-->
+            <div class="w-100 hover-scroll-overlay-y d-flex" id="kt_aside_menu_wrapper" data-kt-scroll="true"
+                 data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer"
+                 data-kt-scroll-wrappers="#kt_aside, #kt_aside_nav, #kt_aside_menu_wrapper" data-kt-scroll-offset="5px">
+                <!--begin::Primary menu-->
+                <div id="kt_aside_menu"
+                     class="menu menu-rounded menu-column menu-active-bg menu-title-gray-600 menu-icon-gray-400 menu-state-primary menu-arrow-gray-500 fw-semibold fs-6 "
+                     data-kt-menu="true">
+                    {% if menu_groups %}
+                        {% for mg in menu_groups %}
+                            <!--begin:Menu item-->
+                            {% if mg.menus %}
+                                {% if mg.uuid == active_menu_gr %}
+                                    <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
+                                         data-kt-menu-placement="right-start" class="menu-item-parent menu-item here">
+                                {% else %}
+                                    <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
+                                         data-kt-menu-placement="right-start" class="menu-item-parent menu-item">
+                                {% endif %}
+                                <!--begin:Menu link-->
+                                <span class="menu-link menu-center px-2">
+                            <div class="d-block">
+                               <span class="menu-icon mx-auto">
+                                  <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/jet/html/releases/2023-01-23-171716/core/html/src/media/icons/duotune/files/fil006.svg-->
+                                  <span class="svg-icon svg-icon-muted svg-icon-2hx">
+                                     {% if mg.icon_class %}
+                                         {{ mg.icon_class|safe }}
+                                     {% else %}
+                                         <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
+                                              xmlns="http://www.w3.org/2000/svg">
+                                        <path opacity="0.3"
+                                              d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM15.5 14C15.5 13.4 14.6 13.5 14 13.5H9.5C8.9 13.5 8.5 13.4 8.5 14C8.5 14.6 8.9 14.5 9.5 14.5H14C14.6 14.5 15.5 14.6 15.5 14Z"
+                                              fill="currentColor"/>
+                                        <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor"/>
+                                        <rect x="8" y="13" width="8" height="2" rx="1" fill="currentColor"/>
+                                     </svg>
+                                     {% endif %}
+                                  </span>
+                                  {% comment %} <img src="/static/jetpro/media/icons/duotune/coding/cod003.svg"/> {% endcomment %}
+                               </span>
+                               <span class="menu-title text-center mx-auto fs-9">
+                               {% if mg.title %}
+                                   {{ mg.title|safe }}
+                               {% endif %}
+                               </span>
+                            </div>
+                         </span>
+                                <!--end:Menu link-->
+                                <!--begin:Menu sub-->
+                                <div class="menu-sub menu-sub-indention menu-sub-dropdown w-225px px-2 py-4">
+                                <!--begin:Menu item-->
+                                <div class="menu-item">
+                                    <!--begin:Menu content-->
+                                    <div class="menu-content">
+                                        <span class="menu-section fs-5 fw-bold ps-1 py-1">{{ mg.title }}</span>
+                                    </div>
+                                    <!--end:Menu content-->
+                                </div>
+                                <!--end:Menu item-->
+                                {% for menu in mg.menus %}
+                                    {% if menu.sub_menus %}
+                                        <!--begin:Menu item-->
+                                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                        <!--begin:Menu link-->
+                                        <span class="menu-link">
+                               <span class="menu-bullet">
+                               <span class="bullet bullet-dot"></span>
+                               </span>
+                               <span class="menu-title">{{ menu.title }}</span>
+                               <span class="menu-arrow"></span>
+                               </span>
+                                        <!--end:Menu link-->
+                                        <!--begin:Menu sub-->
+                                        <!--begin:Menu sub-->
+                                        <div class="menu-sub menu-sub-accordion">
+                                            {% for sub_menu in menu.sub_menus %}
+                                                <!--begin:Menu item-->
+                                                {% if sub_menu.uuid == active_menu_uuid %}
+                                                    <div class="menu-item here">
+                                                {% else %}
+                                                    <div class="menu-item">
+                                                {% endif %}
+                                            <!--begin:Menu link-->
+                                            <a class="menu-link" href="{{ org_app_prefix }}{{ sub_menu.url }}">
+                                        <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                        </span>
+                                                <span class="menu-title">{{ sub_menu.title }}</span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                            </div>
+                                                <!--end:Menu item-->
+                                            {% endfor %}
+                                            </div>
+                                            <!--end:Menu sub-->
+                                        </div>
+                                        <!--end:Menu item-->
+                                    {% else %}
+                                        <!--begin:Menu item-->
+                                        {% if menu.uuid == active_menu_uuid %}
+                                            <div class="menu-item here">
+                                        {% else %}
+                                            <div class="menu-item">
+                                        {% endif %}
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link" href="{{ org_app_prefix }}{{ menu.url }}">
+                                     <span class="menu-bullet">
+                                     <span class="bullet bullet-dot"></span>
+                                     </span>
+                                        <span class="menu-title">{{ menu.title }}</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                    </div>
+                                        <!--end:Menu item-->
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <!--end:Menu sub-->
+                            </div>
+                                <!--end:Menu item-->
+
+                            {% else %}
+                                {% if mg.uuid == active_menu_gr %}
+                                    <a class="menu-item-parent menu-item here" href="{{ org_app_prefix }}{{ mg.url }}">
+                                        <!--begin:Menu link-->
+                                        <span class="menu-link menu-center px-2">
+                         <div class="d-block">
+                            <span class="menu-icon mx-auto">
+                               <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/jet/html/releases/2023-01-23-171716/core/html/src/media/icons/duotune/files/fil006.svg-->
+                               <span class="svg-icon svg-icon-muted svg-icon-2hx">
+                                  {% if mg.icon_class %}
+                                      {{ mg.icon_class|safe }}
+                                  {% else %}
+                                      <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
+                                           xmlns="http://www.w3.org/2000/svg">
+                                     <path opacity="0.3"
+                                           d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM15.5 14C15.5 13.4 14.6 13.5 14 13.5H9.5C8.9 13.5 8.5 13.4 8.5 14C8.5 14.6 8.9 14.5 9.5 14.5H14C14.6 14.5 15.5 14.6 15.5 14Z"
+                                           fill="currentColor"/>
+                                     <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor"/>
+                                     <rect x="8" y="13" width="8" height="2" rx="1" fill="currentColor"/>
+                                  </svg>
+                                  {% endif %}
+                               </span>
+                            </span>
+                            <span class="menu-title text-center mx-auto fs-9">
+                            {% if mg.title %}
+                                {{ mg.title|safe }}
+                            {% endif %}
+                            </span>
+                         </div>
+                      </span>
+                                    </a>
+                                    <!--end:Menu item-->
+                                {% else %}
+                                    <a class="menu-item-parent menu-item " href="{{ org_app_prefix }}{{ mg.url }}">
+                                        <!--begin:Menu link-->
+                                        <span class="menu-link menu-center px-2">
+                         <div class="d-block">
+                            <span class="menu-icon mx-auto">
+                               <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/jet/html/releases/2023-01-23-171716/core/html/src/media/icons/duotune/files/fil006.svg-->
+                               <span class="svg-icon svg-icon-muted svg-icon-2hx">
+                                  {% if mg.icon_class %}
+                                      {{ mg.icon_class|safe }}
+                                  {% else %}
+                                      <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
+                                           xmlns="http://www.w3.org/2000/svg">
+                                     <path opacity="0.3"
+                                           d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM15.5 14C15.5 13.4 14.6 13.5 14 13.5H9.5C8.9 13.5 8.5 13.4 8.5 14C8.5 14.6 8.9 14.5 9.5 14.5H14C14.6 14.5 15.5 14.6 15.5 14Z"
+                                           fill="currentColor"/>
+                                     <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor"/>
+                                     <rect x="8" y="13" width="8" height="2" rx="1" fill="currentColor"/>
+                                  </svg>
+                                  {% endif %}
+                               </span>
+                            </span>
+                            <span class="menu-title text-center mx-auto fs-9">
+                            {% if mg.title %}
+                                {{ mg.title|safe }}
+                            {% endif %}
+                            </span>
+                         </div>
+                      </span>
+                                    </a>
+                                    <!--end:Menu item-->
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    </div>
+                    <!--end::Primary menu-->
+                    </div>
+                    <!--end::Aside Primary Menu Wrapper-->
+                    </div>
+                    <!--end::Nav-->
+                    <!--begin::Input-->
+                    <input type="text" id="org_app_prefixId" disabled class="form-control form-control-solid d-none"
+                           placeholder="" name="uuid" value="{{ org_app_prefix }}"/>
+                    <input type="text" id="org_app_prefix" disabled class="form-control form-control-solid d-none"
+                           placeholder="" name="uuid" value="{{ org_app_prefix }}"/>
+                    <!--end::Input-->
+                    {% if organization %}
+                        <div class="aside-footer d-flex flex-column align-items-center flex-column-auto"
+                             id="kt_aside_footer">
+                            {% if this_user_org and this_user_org.is_administrator or this_user_org.is_owner %}
+                                <!--begin::Footer-->
+                                <!--begin::Menu-->
+                                <div class="mb-7">
+                                    <button type="button"
+                                            class="btn btm-sm btn-icon btn-color-gray-400 btn-active-color-primary btn-active-light"
+                                            data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
+                                            data-kt-menu-overflow="true" data-kt-menu-placement="top-start">
+                                        <!--begin::Svg Icon | path: icons/duotune/coding/cod001.svg-->
+                                        <span class="svg-icon svg-icon-2x">
+                               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                     <path opacity="0.3"
+                                           d="M22.1 11.5V12.6C22.1 13.2 21.7 13.6 21.2 13.7L19.9 13.9C19.7 14.7 19.4 15.5 18.9 16.2L19.7 17.2999C20 17.6999 20 18.3999 19.6 18.7999L18.8 19.6C18.4 20 17.8 20 17.3 19.7L16.2 18.9C15.5 19.3 14.7 19.7 13.9 19.9L13.7 21.2C13.6 21.7 13.1 22.1 12.6 22.1H11.5C10.9 22.1 10.5 21.7 10.4 21.2L10.2 19.9C9.4 19.7 8.6 19.4 7.9 18.9L6.8 19.7C6.4 20 5.7 20 5.3 19.6L4.5 18.7999C4.1 18.3999 4.1 17.7999 4.4 17.2999L5.2 16.2C4.8 15.5 4.4 14.7 4.2 13.9L2.9 13.7C2.4 13.6 2 13.1 2 12.6V11.5C2 10.9 2.4 10.5 2.9 10.4L4.2 10.2C4.4 9.39995 4.7 8.60002 5.2 7.90002L4.4 6.79993C4.1 6.39993 4.1 5.69993 4.5 5.29993L5.3 4.5C5.7 4.1 6.3 4.10002 6.8 4.40002L7.9 5.19995C8.6 4.79995 9.4 4.39995 10.2 4.19995L10.4 2.90002C10.5 2.40002 11 2 11.5 2H12.6C13.2 2 13.6 2.40002 13.7 2.90002L13.9 4.19995C14.7 4.39995 15.5 4.69995 16.2 5.19995L17.3 4.40002C17.7 4.10002 18.4 4.1 18.8 4.5L19.6 5.29993C20 5.69993 20 6.29993 19.7 6.79993L18.9 7.90002C19.3 8.60002 19.7 9.39995 19.9 10.2L21.2 10.4C21.7 10.5 22.1 11 22.1 11.5ZM12.1 8.59998C10.2 8.59998 8.6 10.2 8.6 12.1C8.6 14 10.2 15.6 12.1 15.6C14 15.6 15.6 14 15.6 12.1C15.6 10.2 14 8.59998 12.1 8.59998Z"
+                                           fill="currentColor"/>
+                                     <path d="M17.1 12.1C17.1 14.9 14.9 17.1 12.1 17.1C9.30001 17.1 7.10001 14.9 7.10001 12.1C7.10001 9.29998 9.30001 7.09998 12.1 7.09998C14.9 7.09998 17.1 9.29998 17.1 12.1ZM12.1 10.1C11 10.1 10.1 11 10.1 12.1C10.1 13.2 11 14.1 12.1 14.1C13.2 14.1 14.1 13.2 14.1 12.1C14.1 11 13.2 10.1 12.1 10.1Z"
+                                           fill="currentColor"/>
+                               </svg>
+                            </span>
+                                        <!--end::Svg Icon-->
+                                    </button>
+                                    <!--begin::Menu 2-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px"
+                                         data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Truy cập</div>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu separator-->
+                                        <div class="separator mb-3 opacity-75"></div>
+                                        <!--end::Menu separator-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="{{ org_app_prefix }}/administration/users/list/"
+                                               class="menu-link px-3">Tài khoản</a>
+                                        </div>
+
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="{{ org_app_prefix }}/administration/roles/list/"
+                                               class="menu-link px-3">Vai trò</a>
+                                        </div>
+                                        <div class="menu-item px-3 d-none" data-kt-menu-trigger="hover"
+                                             data-kt-menu-placement="right-start">
+                                            <!--begin::Menu item-->
+                                            <a href="#" class="menu-link px-3">
+                                                <span class="menu-title">Truy cập</span>
+                                                <span class="menu-arrow"></span>
+                                            </a>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu sub-->
+                                            <div class="menu-sub menu-sub-dropdown w-175px py-4 mb-4">
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-3">
+                                                    <a href="{{ org_app_prefix }}/administration/roles/list/"
+                                                       class="menu-link px-3">Vai trò</a>
+                                                </div>
+                                                <!--end::Menu item-->
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-3">
+                                                    <a href="{{ org_app_prefix }}/administration/permissions-group/list"
+                                                       class="menu-link px-3">Nhóm quyền</a>
+                                                </div>
+                                                <!--end::Menu item-->
+                                            </div>
+                                            <!--end::Menu sub-->
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
+                                    <!--end::Menu 2-->
+                                </div>
+                                <!--end::Menu-->
+                            {% endif %}
+                            <!--begin::Menu-->
+                            <div class="mb-7">
+                                <button type="button"
+                                        class="btn btm-sm btn-icon btn-color-gray-400 btn-active-color-primary btn-active-light"
+                                        data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
+                                        data-kt-menu-overflow="true" data-kt-menu-placement="top-start">
+
+                                    <div class="menu-item px-3">
+                                        <div class="menu-content d-flex align-items-center px-3">
+                                            <!--begin::Avatar-->
+                                            <div class="symbol symbol-50px mx-auto">
+                                                {% if organization.logo %}
+                                                    <img src="{{ organization.logo.url }}"/>
+                                                {% else %}
+                                                    <img src="/static/jetpro/assets/media/svg/avatars/blank.svg"/>
+                                                {% endif %}
+                                            </div>
+                                            <!--end::Avatar-->
+
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <!--begin::Menu 2-->
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px"
+                                     data-kt-menu="true">
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3 text-wrap">
+                                        <div class="menu-content fs-6 text-dark fw-bold px-3 py-4 text-break">
+                                            {% if organization.name %}
+                                                {{ organization.name }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                </button>
+                                <!--begin::Menu 2-->
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px"
+                                     data-kt-menu="true">
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3 text-wrap">
+                                        <div class="menu-content fs-6 text-dark fw-bold px-3 py-4 text-break">
+                                            {% if organization.name %}
+                                                {{ organization.name }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <!--end::Menu item-->
+                                    <!--begin::Menu separator-->
+                                    <div class="separator mb-3 opacity-75"></div>
+                                    <!--end::Menu separator-->
+                                    <!--begin::Menu item-->
+                                    {% if this_user_org and this_user_org.is_administrator or this_user_org.is_owner %}
+                                        <div class="menu-item px-3">
+                                            <a href="{{ org_prefix }}/app/QLNS/EmployeeManagement/Employees/"
+                                               class="menu-link px-3">Nhân sự</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3" data-kt-menu-trigger="hover"
+                                             data-kt-menu-placement="right-start">
+                                            <!--begin::Menu item-->
+                                            <a href="#" class="menu-link px-3">
+                                                <span class="menu-title">Sơ đồ tổ chức</span>
+                                                <span class="menu-arrow"></span>
+                                            </a>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu sub-->
+                                            <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-3">
+                                                    <a href="{{ org_prefix }}/app/QLSDTC/OrganizationalStructureManagement/LevelDetail/"
+                                                       class="menu-link px-3">Bộ phận</a>
+                                                </div>
+                                                <!--end::Menu item-->
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-3">
+                                                    <a href="{{ org_prefix }}/app/QLSDTC/OrganizationalStructureManagement/Title/"
+                                                       class="menu-link px-3">Chức danh</a>
+                                                </div>
+                                                <!--end::Menu item-->
+                                                {% comment %} <!--begin::Menu item-->
+                      <div class="menu-item px-3">
+                         <a href="{{org_prefix}}/app/QLSDTC/OrganizationalStructureManagement/MajorDetail/" class="menu-link px-3">Mô tả công việc</a>
+                      </div>
+                      <!--end::Menu item--> {% endcomment %}
+                                            </div>
+                                            <!--end::Menu sub-->
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu separator-->
+                                        <div class="separator mt-3 opacity-75"></div>
+                                        <!--end::Menu separator-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3 d-none">
+                                            <div class="menu-content px-3 py-3">
+                                                <a class="btn btn-primary btn-sm px-4"
+                                                   href="{{ org_prefix }}/app/QLHT/SystemPurchaseManagement/License/">Quản
+                                                    lý License</a>
+                                            </div>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    {% endif %}
+                                </div>
+                                <!--end::Menu 2-->
+                            </div>
+                            <!--end::Menu-->
+                        </div>
+                        <!--end::Footer-->
+                    {% endif %}
+
+                    <div class="aside-footer d-flex flex-column align-items-center flex-column-auto"
+                         id="kt_aside_footer">
+                        <!--begin::Menu-->
+                        <div class="mb-7">
+                            <button type="button"
+                                    class="btn btm-sm btn-icon btn-color-gray-400 btn-active-color-primary btn-active-light"
+                                    data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-overflow="true"
+                                    data-kt-menu-placement="top-start">
+                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/keenthemes/jet/docs/core/html/src/media/icons/duotune/general/gen065.svg-->
+                                <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24"
+                                                                                        viewBox="0 0 24 24" fill="none"
+                                                                                        xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.3"
+                              d="M22.9558 10.2848L21.3341 8.6398C21.221 8.52901 21.1317 8.39637 21.0715 8.24996C21.0114 8.10354 20.9816 7.94641 20.9841 7.78814V5.4548C20.9826 5.13514 20.9179 4.81893 20.7938 4.52433C20.6697 4.22973 20.4887 3.96255 20.261 3.73814C20.0333 3.51374 19.7636 3.33652 19.4672 3.21668C19.1709 3.09684 18.8538 3.03673 18.5341 3.0398H16.2008C16.0425 3.04229 15.8854 3.01255 15.739 2.95238C15.5925 2.89221 15.4599 2.80287 15.3491 2.6898L13.7158 1.0448C13.2608 0.590273 12.6439 0.334961 12.0008 0.334961C11.3576 0.334961 10.7408 0.590273 10.2858 1.0448L8.64078 2.66647C8.52999 2.77954 8.39735 2.86887 8.25094 2.92904C8.10452 2.98922 7.94739 3.01896 7.78911 3.01647H5.45578C5.13612 3.01799 4.8199 3.08266 4.5253 3.20675C4.23071 3.33085 3.96353 3.51193 3.73912 3.73959C3.51471 3.96724 3.3375 4.237 3.21766 4.53335C3.09781 4.82971 3.0377 5.14682 3.04078 5.46647V7.7998C3.04327 7.95808 3.01353 8.11521 2.95335 8.26163C2.89318 8.40804 2.80385 8.54068 2.69078 8.65147L1.04578 10.2848C0.591249 10.7398 0.335938 11.3567 0.335938 11.9998C0.335938 12.6429 0.591249 13.2598 1.04578 13.7148L2.66745 15.3598C2.78051 15.4706 2.86985 15.6032 2.93002 15.7496C2.99019 15.8961 3.01994 16.0532 3.01745 16.2115V18.5448C3.01897 18.8645 3.08363 19.1807 3.20773 19.4753C3.33182 19.7699 3.5129 20.0371 3.74056 20.2615C3.96822 20.4859 4.23798 20.6631 4.53433 20.7829C4.83068 20.9028 5.14779 20.9629 5.46745 20.9598H7.80078C7.95906 20.9573 8.11619 20.9871 8.2626 21.0472C8.40902 21.1074 8.54166 21.1967 8.65245 21.3098L10.2974 22.9548C10.7525 23.4093 11.3693 23.6646 12.0124 23.6646C12.6556 23.6646 13.2724 23.4093 13.7274 22.9548L15.3608 21.3331C15.4716 21.2201 15.6042 21.1307 15.7506 21.0706C15.897 21.0104 16.0542 20.9806 16.2124 20.9831H18.5458C19.1894 20.9831 19.8066 20.7275 20.2617 20.2724C20.7168 19.8173 20.9724 19.2001 20.9724 18.5565V16.2231C20.97 16.0649 20.9997 15.9077 21.0599 15.7613C21.12 15.6149 21.2094 15.4823 21.3224 15.3715L22.9674 13.7265C23.1935 13.5002 23.3726 13.2314 23.4944 12.9357C23.6162 12.64 23.6784 12.3231 23.6773 12.0032C23.6762 11.6834 23.6119 11.3669 23.4881 11.072C23.3643 10.7771 23.1834 10.5095 22.9558 10.2848Z"
+                              fill="currentColor"/>
+                        <path d="M12.0039 15.4998C11.7012 15.4998 11.4109 15.38 11.1969 15.1668C10.9829 14.9535 10.8626 14.6643 10.8626 14.3627V13.9382C10.8467 13.2884 10.9994 12.6456 11.306 12.0718C11.6126 11.4981 12.0627 11.013 12.6126 10.6634C12.7969 10.561 12.9505 10.4114 13.0575 10.2302C13.1645 10.049 13.221 9.84266 13.2213 9.63242C13.2213 9.31073 13.0931 9.00223 12.8648 8.77476C12.6365 8.5473 12.3268 8.41951 12.0039 8.41951C11.6811 8.41951 11.3714 8.5473 11.1431 8.77476C10.9148 9.00223 10.7865 9.31073 10.7865 9.63242C10.7865 9.93399 10.6663 10.2232 10.4523 10.4365C10.2382 10.6497 9.94792 10.7695 9.64522 10.7695C9.34253 10.7695 9.05223 10.6497 8.83819 10.4365C8.62415 10.2232 8.50391 9.93399 8.50391 9.63242C8.50763 9.02196 8.67214 8.42317 8.98099 7.89592C9.28984 7.36868 9.7322 6.93145 10.2639 6.62796C10.7955 6.32447 11.3978 6.16535 12.0105 6.16651C12.6233 6.16767 13.225 6.32908 13.7554 6.63458C14.2859 6.94009 14.7266 7.37899 15.0335 7.9074C15.3403 8.43582 15.5025 9.03522 15.5039 9.64569C15.5053 10.2562 15.3458 10.8563 15.0414 11.3861C14.7369 11.9159 14.2983 12.3568 13.7692 12.6647C13.5645 12.8132 13.4003 13.0101 13.2913 13.2378C13.1824 13.4655 13.1322 13.7167 13.1453 13.9685V14.3931C13.1373 14.6894 13.0136 14.9708 12.8004 15.1776C12.5872 15.3843 12.3014 15.4999 12.0039 15.4998Z"
+                              fill="currentColor"/>
+                        <path d="M12.0026 18.9998C12.6469 18.9998 13.1693 18.4775 13.1693 17.8332C13.1693 17.1888 12.6469 16.6665 12.0026 16.6665C11.3583 16.6665 10.8359 17.1888 10.8359 17.8332C10.8359 18.4775 11.3583 18.9998 12.0026 18.9998Z"
+                              fill="currentColor"/>
+                        </svg>
+                        </span>
+                                <!--end::Svg Icon--></button>
+                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px"
+                                 data-kt-menu="true" style="">
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3">
+                                    <div class="menu-content fs-6 text-dark fw-bold px-3 py-4">{% trans 'Thao tác nhanh' %}</div>
+                                </div>
+                                <!--end::Menu item-->
+
+                                <!--begin::Menu separator-->
+                                <div class="separator mb-3 opacity-75"></div>
+                                <!--end::Menu separator-->
+
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="{% url 'QnAMgmt:contact_form_view' %}" target="_blank"
+                                       class="menu-link px-3">
+                                        {% trans 'Gửi câu hỏi' %}
+                                    </a>
+                                </div>
+                                <!--end::Menu item-->
+
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3" data-kt-menu-trigger="hover"
+                                     data-kt-menu-placement="right-start">
+                                    <!--begin::Menu item-->
+                                    <a href="#" class="menu-link px-3">
+                                        <span class="menu-title">{% trans 'Lịch sử hoạt động' %}</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <!--end::Menu item-->
+
+                                    <!--begin::Menu sub-->
+                                    <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="{% url 'QnAMgmt:my_contact_messages_list_view' %}"
+                                               class="menu-link px-3">
+                                                {% trans 'Câu hỏi của tôi' %}
+                                            </a>
+                                        </div>
+                                        <!--end::Menu item-->
+
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="{% url 'QnAMgmt:public_contact_messages_list_view' %}"
+                                               class="menu-link px-3">
+                                                {% trans 'Câu hỏi/Trả lời phổ biến' %}
+                                            </a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
+                                    <!--end::Menu sub-->
+                                </div>
+                                <!--end::Menu item-->
+
+                                <!--begin::Menu separator-->
+                                <div class="separator mt-3 opacity-75"></div>
+                                <!--end::Menu separator-->
+
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3">
+                                    <div class="menu-content px-3 py-3">
+                                        <a class="btn btn-primary  btn-sm px-4" href="{% url 'QnAMgmt:Contact' %}">
+                                            {% trans 'Liên hệ' %}
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--end::Menu item-->
+                            </div>
+
+                            <!--begin::Menu 2-->
+
+                            <!--end::Menu 2-->
+                        </div>
+                        <!--end::Menu-->
+                    </div>
+
+                </div>
+                <!--end::Primary-->
+
+                <!--begin::Action-->
+                <!--begin::Secondary-->
+
+                <div class="aside-secondary d-flex flex-row-fluid ">
+                    <!--begin::Workspace-->
+                    <div class="aside-workspace overflow-auto my-2 my-lg-7 px-2 px-lg-4" id="kt_aside_wordspace">
+                        <!--begin::Secondary menu-->
+                        <div class="menu menu-sub-indention menu-rounded menu-column menu-active-bg menu-title-gray-600 menu-icon-gray-400 menu-state-primary menu-arrow-gray-500 fw-semibold fs-6 my-5 mt-lg-2 mb-lg-0"
+                             id="kt_aside_menu" data-kt-menu="true">
+                            {% if active_menu %}
+                                {% for mg in active_menu %}
+                                    <div id="kt_aside_menu_wrapper" class="hover-scroll-y me-lg-n4 pe-lg-4"
+                                         data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
+                                         data-kt-scroll-height="auto" data-kt-scroll-offset="20px"
+                                         data-kt-scroll-wrappers="#kt_aside_wordspace">
+                                    <!--begin:Menu item-->
+                                    <div class="menu-item">
+                                        <!--begin:Menu content-->
+                                        <div class="menu-content">
+                                            <span class="menu-section fs-5 fw-bold ps-1 py-1">{{ mg.title }}</span>
+                                        </div>
+                                        <!--end:Menu content-->
+                                    </div>
+                                    <!--end:Menu item-->
+                                    {% for menu in mg.menus %}
+                                        {% if menu.sub_menus %}
+                                            <!--begin:Menu item-->
+                                            {% if menu.uuid == parent_menu_uuid %}
+                                                <div data-kt-menu-trigger="click"
+                                                     class="menu-item here show menu-accordion mb-1">
+                                            {% else %}
+                                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                            {% endif %}
+                                        <!--begin:Menu link-->
+                                        <span class="menu-link">
+                      <span class="menu-bullet">
+                      <span class="bullet bullet-dot"></span>
+                      </span>
+                      <span class="menu-title">{{ menu.title }}</span>
+                      <span class="menu-arrow"></span>
+                      </span>
+                                        <!--end:Menu link-->
+                                        <!--begin:Menu sub-->
+                                        <div class="menu-sub menu-sub-accordion">
+                                            {% for sub_menu in menu.sub_menus %}
+                                                {% if sub_menu.uuid == active_menu_uuid %}
+                                                    <!--begin:Menu item-->
+                                                    <div class="menu-item">
+                                                        <!--begin:Menu link-->
+                                                        <a class="menu-link active"
+                                                           href="{{ org_app_prefix }}{{ sub_menu.url }}">
+                            <span class="menu-bullet">
+                            <span class="bullet bullet-dot"></span>
+                            </span>
+                                                            <span class="menu-title">{{ sub_menu.title }}</span>
+                                                        </a>
+                                                        <!--end:Menu link-->
+                                                    </div>
+                                                    <!--end:Menu item-->
+                                                {% else %}
+                                                    <!--begin:Menu item-->
+                                                    <div class="menu-item">
+                                                        <!--begin:Menu link-->
+                                                        <a class="menu-link"
+                                                           href="{{ org_app_prefix }}{{ sub_menu.url }}">
+                            <span class="menu-bullet">
+                            <span class="bullet bullet-dot"></span>
+                            </span>
+                                                            <span class="menu-title">{{ sub_menu.title }}</span>
+                                                        </a>
+                                                        <!--end:Menu link-->
+                                                    </div>
+                                                    <!--end:Menu item-->
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <!--end:Menu sub-->
+                                        </div>
+                                            <!--end:Menu item-->
+                                        {% else %}
+                                            {% if menu.uuid == active_menu_uuid %}
+                                                <!--begin:Menu item-->
+                                                <div class="menu-item">
+                                                    <!--begin:Menu link-->
+                                                    <a class="menu-link active"
+                                                       href="{{ org_app_prefix }}{{ menu.url }}">
+                      <span class="menu-bullet">
+                      <span class="bullet bullet-dot"></span>
+                      </span>
+                                                        <span class="menu-title">{{ menu.title }}</span>
+                                                    </a>
+                                                    <!--end:Menu link-->
+                                                </div>
+                                                <!--end:Menu item-->
+                                            {% else %}
+                                                <!--begin:Menu item-->
+                                                <div class="menu-item">
+                                                    <!--begin:Menu link-->
+                                                    <a class="menu-link" href="{{ org_app_prefix }}{{ menu.url }}">
+                      <span class="menu-bullet">
+                      <span class="bullet bullet-dot"></span>
+                      </span>
+                                                        <span class="menu-title">{{ menu.title }}</span>
+                                                    </a>
+                                                    <!--end:Menu link-->
+                                                </div>
+                                                <!--end:Menu item-->
+                                            {% endif %}
+                                        {% endif %}
+                                        {% comment %}
+                </div>
+                <!--end:Menu sub--> {% endcomment %}
+                                    {% endfor %}
+                                </div>
+                                    <!--end:Menu item-->
+                                {% endfor %}
+                            {% endif %}
+
+                            </div>
+                            <!--end::Secondary menu-->
+                        </div>
+                        <!--end::Workspace-->
+                    </div>
+                    <!--begin::Aside Toggle-->
+                    <button class="btn btn-sm btn-icon bg-body btn-active-primary position-absolute translate-middle mb-4 start-100 end-0 bottom-0 shadow-sm active"
+                            data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body"
+                            data-kt-toggle-name="aside-minimize">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr063.svg-->
+                        <span class="svg-icon svg-icon-2 rotate-180">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+               <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor"/>
+               <path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z"
+                     fill="currentColor"/>
+            </svg>
+         </span>
+                        <!--end::Svg Icon-->
+                    </button>
+                    <!--end::Aside Toggle-->
+                    <!--end::Action-->
+                    <!--end::Secondary-->
+
+                </div>
+                <!--end::Aside-->

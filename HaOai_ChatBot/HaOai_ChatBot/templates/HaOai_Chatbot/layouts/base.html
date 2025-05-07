@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <base href="../../../"/>
+    <title>        
+     {% block title %}{% endblock %} | NSTS
+    </title>
+    <meta charset="utf-8" />
+    <meta name="description" content="Jet admin dashboard live demo. Check out all the features of the admin panel. A large number of settings, additional services and widgets." />
+    <meta name="keywords" content="Jet theme, bootstrap, bootstrap 5, admin themes, free admin themes, bootstrap admin, bootstrap dashboard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="NSTS" />
+    <meta property="og:url" content="https://nsts.com.vn/" />
+    <meta property="og:site_name" content="NSTS | Web Applications" />
+    <link rel="canonical" href="https://preview.keenthemes.com/jet-html-pro" />
+    <link rel="shortcut icon" href="/static/jetpro/assets/media/logos/qlvbqp-icon.png" />
+    <!--begin::Fonts(mandatory for all pages)-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+    <!--end::Fonts-->
+    <!--begin::Vendor Stylesheets(used for this page only)-->
+    <link href="/static/jetpro/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+    <!--end::Vendor Stylesheets-->
+    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+    <link href="/static/jetpro/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="/static/jetpro/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    {% block stylesheets %} {% endblock stylesheets %}
+    <!--end::Global Stylesheets Bundle-->
+</head>
+<!--end::Head-->
+
+<!--begin::Body-->
+<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed aside-fixed aside-secondary-enabled" data-kt-aside-minimize="on">
+    <!--begin::Theme mode setup on page load-->
+    <style>
+
+        :root,
+            [data-theme=light]{
+                --kt-primary: #024ea3;
+                --kt-primary-active: #013570;
+                --kt-text-primary: #024ea3;
+                --kt-pagination-hover-color: #024ea3;
+                --kt-pagination-focus-color: #024ea3;
+                --kt-pagination-active: #024ea3;
+                --kt-pagination-active-bg: #024ea3;
+                --kt-form-check-input-checked-bg-color: #024ea3;
+                --kt-form-check-input-checked-border-color: #024ea3;
+            }
+            
+    </style>
+    <script>
+    var defaultThemeMode = "light"; 
+    var themeMode; 
+        if ( document.documentElement ) { 
+            if ( document.documentElement.hasAttribute("data-theme-mode")) { 
+                themeMode = document.documentElement.getAttribute("data-theme-mode"); 
+            } 
+            else { 
+                if ( localStorage.getItem("data-theme") !== null ) { 
+                    themeMode = localStorage.getItem("data-theme"); } 
+                else { 
+                    themeMode = defaultThemeMode; } 
+                } 
+                if (themeMode === "system") { 
+                    themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; 
+                } 
+                document.documentElement.setAttribute("data-theme", themeMode); 
+        }
+    </script>
+    <!--end::Theme mode setup on page load-->
+
+    <div class="d-flex flex-column flex-root">
+        <!--begin::Page-->
+        <div class="page d-flex flex-row flex-column-fluid">
+            {% include 'jetpro/includes/navigation.html' %}
+        
+            <!--begin::Wrapper-->
+            <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+                <!--begin::Header-->
+                <div id="kt_header" class="header" data-kt-sticky="true" data-kt-sticky-name="header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
+                    <!--begin::Container-->
+                    <div class="container-fluid d-flex align-items-stretch justify-content-between" id="kt_header_container">
+                        <!--begin::Page title-->
+                        <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-lg-2 pb-2 pb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
+                            <!--begin::Heading-->
+                            <h1 class="text-dark fw-bold my-1 fs-2">{% block page_name %}{% endblock%}</h1>
+                            <!--end::Heading-->
+            
+                           <!--begin::Breadcrumb-->
+                           {% block breadcrumbs %}
+            
+                            {% endblock%} 
+                        <!--end::Breadcrumb-->
+                        </div>
+                        {% include 'jetpro/includes/sidebar.html' %}
+
+                    </div>
+                    <!--end::Container-->
+                </div>
+                <!--end::Header-->
+            <!--begin::Content-->
+            <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
+                <!--begin::Content-->
+                {% block content %} 
+
+                {% endblock content %} 
+    {% include 'AccountManagement/'|add:website_template|add:'/admin/my_account/my_account_change_password.html' %}
+
+            </div>
+            <!--end::Content-->
+            {% include 'jetpro/includes/footer.html' %}
+            </div>
+            <!--end::Wrapper-->
+        </div>
+        <!--end::Page-->
+    </div>
+    {% include 'jetpro/includes/activities.html' %}
+    {% include 'jetpro/includes/chat.html' %}
+    {% include 'jetpro/includes/scripts.html' %}
+
+
+    
+
+
+    <!-- Specific Page JS goes HERE  -->
+    {% block javascripts %}{% endblock javascripts %}
+</body>
+
+</html>
