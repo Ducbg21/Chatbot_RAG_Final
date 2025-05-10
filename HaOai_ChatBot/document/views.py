@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import Document
 from .forms import DocumentForm
 
@@ -26,6 +27,11 @@ def upload_document_view(request):
             document = form.save(commit=False)
             document.uploaded_by = request.user
             document.save()
+            # Thông báo thành công
+            messages.success(request, 'Tải lên tài liệu thành công!')
+        else:
+            # Nếu có lỗi
+            messages.error(request, 'Có lỗi xảy ra khi tải lên tài liệu!')
     else:
         form = DocumentForm()
     return render(request, 'document/upload_document.html', {'form': form})

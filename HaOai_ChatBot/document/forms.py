@@ -33,6 +33,13 @@ class DocumentForm(forms.ModelForm):
             instance.txt_file = upload_file
             instance.pdf_file = None  # Đảm bảo pdf_file trống
 
+        if upload_file:
+            try:
+                content = upload_file.read().decode('utf-8')
+                instance.content = content.strip()
+            except Exception as e:
+                instance.content = ''
+
         if commit:
             instance.save()
         return instance

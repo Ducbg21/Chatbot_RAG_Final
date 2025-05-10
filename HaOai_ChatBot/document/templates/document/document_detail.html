@@ -73,8 +73,8 @@
                                 <div class="rounded-circle bg-danger w-15px h-15px" title="Lỗi xử lý"></div>
                                 <span class="text-danger fw-bold">Lỗi xử lý</span>
                             {% elif document.status == 'uploaded' %}
-                                <div class="rounded-circle bg-purple w-15px h-15px" title="Đã tải lên"></div>
-                                <span class="text-purple fw-bold">Đã tải lên</span>
+                                <div class="rounded-circle badge-light-purple w-15px h-15px" title="Đã tải lên"></div>
+                                <span class="text-light-purple fw-bold">Đã tải lên</span>
                             {% else %}
                                 <div class="rounded-circle bg-secondary w-15px h-15px" title="Chưa xác định"></div>
                                 <span class="text-muted">Chưa xác định</span>
@@ -189,6 +189,20 @@
         <!--end::Container-->
     </div>
     <!--end::Content-->
+
+{% block styles %}
+<style>
+    .badge-light-purple {
+        background-color: #9b59b6; /* Màu tím */
+        color: white;
+    }
+    .text-light-purple {
+        color: #9b59b6; /* Màu chữ tím */
+    }
+</style>
+
+{% endblock %}
+
 {% endblock %}
 
 {% block extra_scripts %}

@@ -178,12 +178,13 @@ AUTH_USER_MODEL = "account.Account"
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # test
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 SITE_ID = 1
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "your_email@gmail.com"
-EMAIL_HOST_PASSWORD = "your_app_pass"
+EMAIL_HOST_USER = "nguyenduc21bg@gmail.com"
+EMAIL_HOST_PASSWORD = "bxel cebw jtzy rgdm"
 
 # Login Url
 LOGIN_URL = "account:signin_view"
