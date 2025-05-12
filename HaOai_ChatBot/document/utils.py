@@ -6,7 +6,7 @@ from langchain_milvus import Milvus
 
 from .embedding import GTEEmbeddingFunction
 
-# _embedding_fn = GTEEmbeddingFunction()
+_embedding_fn = GTEEmbeddingFunction()
 
 def split_documents(docs: List[Document], chunk_size: int = 1000, chunk_overlap: int = 200) -> List[Document]:
     splitter = CharacterTextSplitter(

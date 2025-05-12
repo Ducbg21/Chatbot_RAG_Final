@@ -322,10 +322,9 @@
 {% endblock %}
 
 {% block content %}
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <div class="container-xxl" id="kt_content_container">
+<div class="container-xxl" id="kt_content_container">
         <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center">
-            <div class="flex-lg-row-fluid w-100" style="max-width:800px;">
+            <div class="flex-lg-row-fluid w-100" style="max-width:900px;">
                 <div class="card" id="kt_chat_messenger">
                     <div class="card-header" id="kt_chat_messenger_header">
                         <div class="card-title">
@@ -339,12 +338,12 @@
                         </div>
                     </div>
                     <div class="card-body" id="kt_chat_messenger_body">
-                        <div id="chat-messages" class="scroll-y pe-3" style="height: 600px; overflow-y: auto;">
+                        <div id="chat-messages" class="scroll-y pe-3" style="height: 700px; overflow-y: auto; padding-right: 10px;">
                             <!-- Tin nhắn sẽ được thêm vào đây bằng JS -->
                         </div>
                     </div>
                     <div class="card-footer pt-4" id="kt_chat_messenger_footer">
-                        <textarea id="chat-input" class="form-control form-control-flush mb-3" rows="1" placeholder="Type a message"></textarea>
+                        <textarea id="chat-input" class="form-control form-control-flush mb-3" rows="1" placeholder="Type a message..."></textarea>
                         <div class="d-flex flex-stack">
                             <div></div>
                             <button class="btn btn-primary" id="send-btn" type="button">Send</button>
@@ -354,63 +353,108 @@
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block extra_scripts %}
 <script>
-    const chatMessages = document.getElementById('chat-messages');
-    const chatInput = document.getElementById('chat-input');
-    const sendBtn = document.getElementById('send-btn');
-    
-    // Kết nối WebSocket
-    const chatSocket = new WebSocket(
-        'ws://127.0.0.1:8000/ws/chat/'
-    );
+document.addEventListener("DOMContentLoaded", function () {
+    const sendBtn = document.getElementById("send-btn");
+    const chatInput = document.getElementById("chat-input");
+    const chatMessages = document.getElementById("chat-messages");
 
-    chatSocket.onopen = function(e) {
-        console.log('WebSocket connection established');
-    };
+    // Thêm tin nhắn vào giao diện
+    function appendMessage(content, sender = "user") {
+        const messageElement = document.createElement("div");
+        messageElement.classList.add("d-flex", "mb-3", sender === "user" ? "justify-content-end" : "justify-content-start");
+        messageElement.classList.add("message-item");
 
-    chatSocket.onmessage = function(e) {
-        const data = JSON.parse(e.data);
-        appendMessage(data.message, 'bot');
-    };
+        const bubble = document.createElement("div");
+<!--        bubble.classList.add("p-3", "rounded", sender === "user" ? "bg-primary text-white" : "bg-light text-dark");-->
+        bubble.classList.add("p-3", "rounded");
+        if (sender === "user") {
+            bubble.classList.add("bg-primary", "text-white");
+        } else {
+            bubble.classList.add("bg-light", "text-dark");
+        }
 
-    chatSocket.onclose = function(e) {
-        console.error('WebSocket connection closed unexpectedly');
-    };
+        // Thêm hiệu ứng cho tin nhắn
+        bubble.style.maxWidth = "75%";
+        bubble.innerText = content;
 
-    function appendMessage(text, sender) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = sender === 'user' ? 'd-flex justify-content-end mb-2' : 'd-flex justify-content-start mb-2';
-        msgDiv.innerHTML = `
-            <div class="d-flex flex-column align-items-${sender === 'user' ? 'end' : 'start'}">
-                <div class="p-3 rounded ${sender === 'user' ? 'bg-light-primary text-end' : 'bg-light-info text-start'} text-dark fw-semibold mw-lg-400px" style="max-width: 80vw;">${text}</div>
-            </div>
-        `;
-        chatMessages.appendChild(msgDiv);
+        // Thêm hoạt ảnh cho tin nhắn khi gửi
+        bubble.classList.add('message-bubble-animation');
+
+        messageElement.appendChild(bubble);
+        chatMessages.appendChild(messageElement);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    sendBtn.addEventListener('click', function() {
-        const message = chatInput.value.trim();
-        if (!message) return;
-        
-        // Gửi tin nhắn qua WebSocket
-        chatSocket.send(JSON.stringify({
-            'message': message
-        }));
-        
-        appendMessage(message, 'user');
-        chatInput.value = '';
-    });
+    // Thêm phần tử cho tin nhắn stream
+    function appendBotStreamContainer() {
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("d-flex", "mb-3", "justify-content-start");
 
-    chatInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendBtn.click();
+        const bubble = document.createElement("div");
+        bubble.classList.add("p-3", "rounded", "bg-light", "text-dark");
+        bubble.style.maxWidth = "75%";
+        bubble.innerText = "";
+        bubble.id = "bot-stream";
+
+        wrapper.appendChild(bubble);
+        chatMessages.appendChild(wrapper);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        return bubble;
+    }
+
+    // Xử lý khi gửi tin nhắn
+    sendBtn.addEventListener("click", async function () {
+        const question = chatInput.value.trim();
+        if (!question) return;
+
+        // Hiển thị câu hỏi của người dùng
+        appendMessage(question, "user");
+        chatInput.value = "";
+
+        try {
+            const response = await fetch("/chatbot/api/v1/qa_chatbot", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCSRFToken()
+                },
+                body: JSON.stringify({ question })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                appendMessage("Lỗi: " + (errorData.error || "Không thể lấy phản hồi"), "bot");
+                return;
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder("utf-8");
+            const botBubble = appendBotStreamContainer();
+
+            let { value, done } = await reader.read();
+            while (!done) {
+                const chunk = decoder.decode(value, { stream: true });
+                botBubble.innerText += chunk;  // Thêm dữ liệu trả về vào tin nhắn
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                ({ value, done } = await reader.read());
+            }
+        } catch (err) {
+            console.error("Error:", err);
+            appendMessage("Lỗi kết nối đến server", "bot");
         }
     });
+
+    function getCSRFToken() {
+        const cookieValue = document.cookie
+            .split("; ")
+            .find(row => row.startsWith("csrftoken="));
+        return cookieValue ? cookieValue.split("=")[1] : "";
+    }
+});
 </script>
 {% endblock %}
