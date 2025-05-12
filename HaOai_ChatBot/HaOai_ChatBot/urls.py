@@ -9,6 +9,7 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('workspace/', include('workspace.urls')),
     path('document/', include('document.urls')),
+    path('chatbot/', include('chatbot.urls')),
 ]
 
 if settings.DEBUG:

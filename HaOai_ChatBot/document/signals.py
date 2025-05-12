@@ -1,57 +1,66 @@
+# documents/signals.py
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import Document, Chunk
-from .utils import split_documents, connect_milvus
-from langchain.schema import Document as LC_Document
+from langchain.schema import Document as LangchainDocument
+
+from .utils import seed_data_to_milvus, split_documents
+import traceback
 from uuid import uuid4
 
 @receiver(post_save, sender=Document)
-def handle_document_save(sender, instance, created, **kwargs):
-    if not created or not instance.content:  # chỉ chạy khi tạo mới & có content
+def process_document(sender, instance, created, **kwargs):
+    if not created:
         return
 
     try:
         # Cập nhật trạng thái: processing
         instance.status = 'processing'
-        instance.save(update_fields=['status'])
+        instance.save(update_fields=["status"])
 
-        # B1: Tạo document giả lập cho Langchain
-        doc = LC_Document(
+        # Tạo document cho Langchain
+        langchain_doc = LangchainDocument(
             page_content=instance.content,
             metadata={
-                "doc_name": instance.name,
-                "language": "vi",
-                "source": f"{instance.uuid}",
-                "content_type": instance.source_type,
-                "start_index": 0,
+                "doc_id": str(instance.uuid),
+                "title": instance.name,
+                "uploaded_by": str(instance.uploaded_by_id),
+                "source_type": instance.source_type
             }
         )
 
-        # B2: Chia chunk
-        chunks = split_documents([doc])
+        # Chia chunk
+        chunks = split_documents([langchain_doc])
 
-        # B3: Lưu chunks vào DB
-        for i, chunk in enumerate(chunks):
-            Chunk.objects.create(
+        chunk_objs = []
+        for chunk in chunks:
+            chunk_objs.append(Chunk(
                 uuid=uuid4(),
                 document=instance,
-                chunk_index=i,
+                chunk_index=chunk.metadata.get("chunk_index", 0),
                 content=chunk.page_content
-            )
+            ))
 
-        # B4: Đẩy lên Milvus
-        milvus = connect_milvus("http://localhost:19530", "haui_data")
-        milvus.add_documents(
-            documents=chunks,
-            ids=[str(uuid4()) for _ in chunks]
+        # Lưu vào DB
+        Chunk.objects.bulk_create(chunk_objs)
+
+        # Push lên Milvus
+        seed_data_to_milvus(
+            url='http://localhost:19530',
+            collection_name='haui_data',
+            docs=[langchain_doc]
         )
 
-        # B5: Trạng thái thành công
+        # Cập nhật embedding_sent = True cho các chunk
+        Chunk.objects.filter(document=instance).update(embedding_sent=True)
+
+        # Cập nhật trạng thái: processed
         instance.status = 'processed'
-        instance.save(update_fields=['status'])
+        instance.save(update_fields=["status"])
 
     except Exception as e:
-        # B6: Nếu có lỗi
         instance.status = 'error'
-        instance.save(update_fields=['status'])
-        print(f"❌ Lỗi khi xử lý document {instance.uuid}: {e}")
+        instance.save(update_fields=["status"])
+        print("Lỗi xử lý document:", e)
+        traceback.print_exc()

@@ -45,7 +45,18 @@ INSTALLED_APPS = [
     'portal',
     'account',
     'document',
+    'chatbot',
+    'channels',
 ]
+
+ASGI_APPLICATION = 'HaOai_ChatBot.asgi.application'
+
+# Channel Layers Configuration
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -68,6 +79,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'account', 'templates'),
             os.path.join(BASE_DIR, 'workspace', 'templates'),
             os.path.join(BASE_DIR, 'document', 'templates'),
+            os.path.join(BASE_DIR, 'chatbot', 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
