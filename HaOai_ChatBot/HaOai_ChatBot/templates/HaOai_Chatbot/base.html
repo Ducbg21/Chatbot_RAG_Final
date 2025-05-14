@@ -6,14 +6,8 @@
 	<head><base href=""/>
 		<title>HaOai Chatbot</title>
 		<meta charset="utf-8" />
-		<meta name="description" content="Jet admin dashboard live demo. Check out all the features of the admin panel. A large number of settings, additional services and widgets." />
-		<meta name="keywords" content="Jet theme, bootstrap, bootstrap 5, admin themes, free admin themes, bootstrap admin, bootstrap dashboard" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Jet HTML Pro - Bootstrap 5 HTML Multipurpose Admin Dashboard Theme" />
-		<meta property="og:url" content="https://keenthemes.com/products/jet-html-pro" />
-		<meta property="og:site_name" content="Keenthemes | Jet HTML Pro" />
 		<link rel="canonical" href="https://preview.keenthemes.com/jet-html-pro" />
 		<link rel="shortcut icon" href="{% static 'portal/assets/media/logos/logo_haui_v1.png' %}" />
 		<!--begin::Fonts(mandatory for all pages)-->
@@ -46,7 +40,7 @@
 					<div class="aside-primary d-flex flex-column align-items-lg-center flex-row-auto">
 						<!--begin::Logo-->
 						<div class="aside-logo d-none d-lg-flex flex-column align-items-center flex-column-auto pt-10" id="kt_aside_logo">
-							<a href="{}">
+							<a href="{% url 'workspace:workspace_view' %}">
 								<img alt="Logo" src="{% static 'portal/assets/media/logos/logo_haui_v1.png' %}" class="h-55px" />
 							</a>
 						</div>
@@ -58,300 +52,389 @@
 							<div class="w-100 hover-scroll-overlay-y d-flex" id="kt_aside_menu_wrapper" data-kt-scroll="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-wrappers="#kt_aside, #kt_aside_nav, #kt_aside_menu_wrapper" data-kt-scroll-offset="5px">
 								<!--begin::Primary menu-->
 								<div id="kt_aside_menu" class="menu menu-rounded menu-column menu-active-bg menu-title-gray-600 menu-icon-gray-400 menu-state-primary menu-arrow-gray-500 fw-semibold fs-6 my-auto" data-kt-menu="true">
-									<!--begin:Menu item-->
-									<div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item here show py-2">
-										<!--begin:Menu link-->
-										<span class="menu-link menu-center">
-											<span class="menu-icon me-0">
-												<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-												<span class="svg-icon svg-icon-2x">
-													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
-														<rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
-														<rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
-														<rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
-													</svg>
-												</span>
-												<!--end::Svg Icon-->
-											</span>
-										</span>
-										<!--end:Menu link-->
-										<!--begin:Menu sub-->
-										<div class="menu-sub menu-sub-indention menu-sub-dropdown w-225px px-2 py-4">
-											<!--begin:Menu item-->
-											<div class="menu-item">
-												<!--begin:Menu link-->
-												<a class="menu-link active" href="{% url 'workspace:workspace_view' %}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
+									{% if request.user.is_staff %}
+										<!--begin:Menu item-->
+										<div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item here show py-2">
+											<!--begin:Menu link-->
+											<span class="menu-link menu-center">
+												<span class="menu-icon me-0">
+													<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+													<span class="svg-icon svg-icon-2x">
+														<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+															<rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+															<rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+															<rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+															<rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+														</svg>
 													</span>
-													<span class="menu-title">Dashboard</span>
-												</a>
-												<!--end:Menu link-->
-											</div>
-											<!--end:Menu item-->
-<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
-<!--											<div class="menu-item">-->
-<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
-<!--												<a class="menu-link" href="../dist/dashboards/projects.html">-->
-<!--													<span class="menu-bullet">-->
-<!--														<span class="bullet bullet-dot"></span>-->
-<!--													</span>-->
-<!--													<span class="menu-title">Projects</span>-->
-<!--												</a>-->
-<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
-<!--											</div>-->
-<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
-<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
-<!--											<div class="menu-item">-->
-<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
-<!--												<a class="menu-link" href="../dist/dashboards/logistics.html">-->
-<!--													<span class="menu-bullet">-->
-<!--														<span class="bullet bullet-dot"></span>-->
-<!--													</span>-->
-<!--													<span class="menu-title">Logistics</span>-->
-<!--												</a>-->
-<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
-<!--											</div>-->
-<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
-<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
-<!--											<div class="menu-item">-->
-<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
-<!--												<a class="menu-link" href="../dist/dashboards/store-analytics.html">-->
-<!--													<span class="menu-bullet">-->
-<!--														<span class="bullet bullet-dot"></span>-->
-<!--													</span>-->
-<!--													<span class="menu-title">Store Analytics</span>-->
-<!--												</a>-->
-<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
-<!--											</div>-->
-<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
-<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
-<!--											<div class="menu-item">-->
-<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
-<!--												<a class="menu-link" href="../dist/dashboards/finance-performance.html">-->
-<!--													<span class="menu-bullet">-->
-<!--														<span class="bullet bullet-dot"></span>-->
-<!--													</span>-->
-<!--													<span class="menu-title">Finance Performance</span>-->
-<!--												</a>-->
-<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
-<!--											</div>-->
-<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
-										</div>
-										<!--end:Menu sub-->
-									</div>
-									<!--end:Menu item-->
-									<!--begin:Menu item-->
-									<div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
-										<!--begin:Menu link-->
-										<span class="menu-link menu-center">
-											<span class="menu-icon me-0">
-												<!--begin::Svg Icon | path: Document icon-->
-												<span class="svg-icon svg-icon-2x">
-													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22Z" fill="currentColor" />
-														<path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor" />
-														<rect x="7.5" y="12" width="9" height="1" rx="0.5" fill="currentColor" />
-														<rect x="7.5" y="15" width="9" height="1" rx="0.5" fill="currentColor" />
-													</svg>
+													<!--end::Svg Icon-->
 												</span>
-												<!--end::Svg Icon-->
 											</span>
-										</span>
-										<!--end:Menu link-->
-										<!--begin:Menu sub-->
-										<div class="menu-sub menu-sub-dropdown w-225px px-2 py-4">
-											<!--begin:Menu item-->
-											<div class="menu-item">
-												<!--begin:Menu content-->
-												<div class="menu-content">
-													<span class="menu-section fs-5 fw-bold ps-1 py-1">Document Management</span>
+											<!--end:Menu link-->
+											<!--begin:Menu sub-->
+											<div class="menu-sub menu-sub-indention menu-sub-dropdown w-225px px-2 py-4">
+												<!--begin:Menu item-->
+												<div class="menu-item">
+													<!--begin:Menu link-->
+													<a class="menu-link active" href="{% url 'workspace:workspace_view' %}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+														<span class="menu-title">Dashboard</span>
+													</a>
+													<!--end:Menu link-->
 												</div>
-												<!--end:Menu content-->
+												<!--end:Menu item-->
+	<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
+	<!--											<div class="menu-item">-->
+	<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
+	<!--												<a class="menu-link" href="../dist/dashboards/projects.html">-->
+	<!--													<span class="menu-bullet">-->
+	<!--														<span class="bullet bullet-dot"></span>-->
+	<!--													</span>-->
+	<!--													<span class="menu-title">Projects</span>-->
+	<!--												</a>-->
+	<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
+	<!--											</div>-->
+	<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
+	<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
+	<!--											<div class="menu-item">-->
+	<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
+	<!--												<a class="menu-link" href="../dist/dashboards/logistics.html">-->
+	<!--													<span class="menu-bullet">-->
+	<!--														<span class="bullet bullet-dot"></span>-->
+	<!--													</span>-->
+	<!--													<span class="menu-title">Logistics</span>-->
+	<!--												</a>-->
+	<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
+	<!--											</div>-->
+	<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
+	<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
+	<!--											<div class="menu-item">-->
+	<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
+	<!--												<a class="menu-link" href="../dist/dashboards/store-analytics.html">-->
+	<!--													<span class="menu-bullet">-->
+	<!--														<span class="bullet bullet-dot"></span>-->
+	<!--													</span>-->
+	<!--													<span class="menu-title">Store Analytics</span>-->
+	<!--												</a>-->
+	<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
+	<!--											</div>-->
+	<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
+	<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
+	<!--											<div class="menu-item">-->
+	<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
+	<!--												<a class="menu-link" href="../dist/dashboards/finance-performance.html">-->
+	<!--													<span class="menu-bullet">-->
+	<!--														<span class="bullet bullet-dot"></span>-->
+	<!--													</span>-->
+	<!--													<span class="menu-title">Finance Performance</span>-->
+	<!--												</a>-->
+	<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
+	<!--											</div>-->
+	<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
 											</div>
-											<!--end:Menu item-->
-
-											<!--begin:Menu item-->
-											<div class="menu-item">
-												<!--begin:Menu link-->
-												<a class="menu-link" href="{% url 'document:document_view' %}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-													<span class="menu-title">List View</span>
-												</a>
-												<!--end:Menu link-->
-											</div>
-											<!--end:Menu item-->
-
-<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
-<!--											<div class="menu-item">-->
-<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
-<!--												<a class="menu-link" href="../dist/documents/grid-view.html">-->
-<!--													<span class="menu-bullet">-->
-<!--														<span class="bullet bullet-dot"></span>-->
-<!--													</span>-->
-<!--													<span class="menu-title">Grid View</span>-->
-<!--												</a>-->
-<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
-<!--											</div>-->
-<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
-
-											<!--begin:Menu item-->
-											<div class="menu-item">
-												<!--begin:Menu link-->
-												<a class="menu-link" href="{% url 'document:upload_document_view' %}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-													<span class="menu-title">Upload Document</span>
-												</a>
-												<!--end:Menu link-->
-											</div>
-											<!--end:Menu item-->
-
-<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
-<!--											<div class="menu-item">-->
-<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
-<!--												<a class="menu-link" href="../dist/documents/categories.html">-->
-<!--													<span class="menu-bullet">-->
-<!--														<span class="bullet bullet-dot"></span>-->
-<!--													</span>-->
-<!--													<span class="menu-title">Categories</span>-->
-<!--												</a>-->
-<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
-<!--											</div>-->
-<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
-
-<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
-<!--											<div class="menu-item">-->
-<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
-<!--												<a class="menu-link" href="../dist/documents/archive.html">-->
-<!--													<span class="menu-bullet">-->
-<!--														<span class="bullet bullet-dot"></span>-->
-<!--													</span>-->
-<!--													<span class="menu-title">Archive</span>-->
-<!--												</a>-->
-<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
-<!--											</div>-->
-<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
-
-<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
-<!--											<div class="menu-item">-->
-<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
-<!--												<a class="menu-link" href="../dist/documents/permissions.html">-->
-<!--													<span class="menu-bullet">-->
-<!--														<span class="bullet bullet-dot"></span>-->
-<!--													</span>-->
-<!--													<span class="menu-title">Permissions</span>-->
-<!--												</a>-->
-<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
-<!--											</div>-->
-<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
-
-<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
-<!--											<div class="menu-item">-->
-<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
-<!--												<a class="menu-link" href="../dist/documents/version-history.html">-->
-<!--													<span class="menu-bullet">-->
-<!--														<span class="bullet bullet-dot"></span>-->
-<!--													</span>-->
-<!--													<span class="menu-title">Version History</span>-->
-<!--												</a>-->
-<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
-<!--											</div>-->
-<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
+											<!--end:Menu sub-->
 										</div>
-										<!--end:Menu sub-->
-									</div>
-									<!--begin:Menu item-->
-									<div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
-										<!--begin:Menu link-->
-										<span class="menu-link menu-center">
-											<span class="menu-icon me-0">
-												<!--begin::Svg Icon | path: icons/duotune/communication/com013.svg-->
-												<span class="svg-icon svg-icon-2x">
-													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="currentColor" />
-														<rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="currentColor" />
-													</svg>
+										<!--end:Menu item-->
+										<!--begin:Menu item-->
+										<div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
+											<!--begin:Menu link-->
+											<span class="menu-link menu-center">
+												<span class="menu-icon me-0">
+													<!--begin::Svg Icon | path: Document icon-->
+													<span class="svg-icon svg-icon-2x">
+														<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+															<path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22Z" fill="currentColor" />
+															<path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor" />
+															<rect x="7.5" y="12" width="9" height="1" rx="0.5" fill="currentColor" />
+															<rect x="7.5" y="15" width="9" height="1" rx="0.5" fill="currentColor" />
+														</svg>
+													</span>
+													<!--end::Svg Icon-->
 												</span>
-												<!--end::Svg Icon-->
 											</span>
-										</span>
-										<!--end:Menu link-->
-										<!--begin:Menu sub-->
-										<div class="menu-sub menu-sub-indention menu-sub-dropdown w-225px px-2 py-4">
-											<!--begin:Menu item-->
-											<div class="menu-item">
-												<!--begin:Menu content-->
-												<div class="menu-content">
-													<span class="menu-section fs-5 fw-bold ps-1 py-1">Account</span>
+											<!--end:Menu link-->
+											<!--begin:Menu sub-->
+											<div class="menu-sub menu-sub-dropdown w-225px px-2 py-4">
+												<!--begin:Menu item-->
+												<div class="menu-item">
+													<!--begin:Menu content-->
+													<div class="menu-content">
+														<span class="menu-section fs-5 fw-bold ps-1 py-1">Document Management</span>
+													</div>
+													<!--end:Menu content-->
 												</div>
-												<!--end:Menu content-->
-											</div>
-											<!--end:Menu item-->
-											<!--begin:Menu item-->
-											<div class="menu-item">
-												<!--begin:Menu link-->
-												<a class="menu-link" href="{% url 'account:my_profile_view' %}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-													<span class="menu-title">Overview</span>
-												</a>
-												<!--end:Menu link-->
-											</div>
-											<!--end:Menu item-->
-											<!--begin:Menu item-->
-											<div class="menu-item">
-												<!--begin:Menu link-->
-												<a class="menu-link" href="{% url 'account:user_settings_view' %}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-													<span class="menu-title">Settings</span>
-												</a>
-												<!--end:Menu link-->
-											</div>
-											<!--end:Menu item-->
+												<!--end:Menu item-->
 
-											<!--begin:Menu item-->
-											<div class="menu-item">
-												<!--begin:Menu link-->
-												<a class="menu-link" href="{% url 'account:user_settings_view' %}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-													<span class="menu-title">Activity</span>
-												</a>
-												<!--end:Menu link-->
-											</div>
-											<!--end:Menu item-->
+												<!--begin:Menu item-->
+												<div class="menu-item">
+													<!--begin:Menu link-->
+													<a class="menu-link" href="{% url 'document:document_view' %}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+														<span class="menu-title">List View</span>
+													</a>
+													<!--end:Menu link-->
+												</div>
+												<!--end:Menu item-->
 
+	<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
+	<!--											<div class="menu-item">-->
+	<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
+	<!--												<a class="menu-link" href="../dist/documents/grid-view.html">-->
+	<!--													<span class="menu-bullet">-->
+	<!--														<span class="bullet bullet-dot"></span>-->
+	<!--													</span>-->
+	<!--													<span class="menu-title">Grid View</span>-->
+	<!--												</a>-->
+	<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
+	<!--											</div>-->
+	<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
+
+												<!--begin:Menu item-->
+												<div class="menu-item">
+													<!--begin:Menu link-->
+													<a class="menu-link" href="{% url 'document:upload_document_view' %}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+														<span class="menu-title">Upload Document</span>
+													</a>
+													<!--end:Menu link-->
+												</div>
+												<!--end:Menu item-->
+
+	<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
+	<!--											<div class="menu-item">-->
+	<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
+	<!--												<a class="menu-link" href="../dist/documents/categories.html">-->
+	<!--													<span class="menu-bullet">-->
+	<!--														<span class="bullet bullet-dot"></span>-->
+	<!--													</span>-->
+	<!--													<span class="menu-title">Categories</span>-->
+	<!--												</a>-->
+	<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
+	<!--											</div>-->
+	<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
+
+	<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
+	<!--											<div class="menu-item">-->
+	<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
+	<!--												<a class="menu-link" href="../dist/documents/archive.html">-->
+	<!--													<span class="menu-bullet">-->
+	<!--														<span class="bullet bullet-dot"></span>-->
+	<!--													</span>-->
+	<!--													<span class="menu-title">Archive</span>-->
+	<!--												</a>-->
+	<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
+	<!--											</div>-->
+	<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
+
+	<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
+	<!--											<div class="menu-item">-->
+	<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
+	<!--												<a class="menu-link" href="../dist/documents/permissions.html">-->
+	<!--													<span class="menu-bullet">-->
+	<!--														<span class="bullet bullet-dot"></span>-->
+	<!--													</span>-->
+	<!--													<span class="menu-title">Permissions</span>-->
+	<!--												</a>-->
+	<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
+	<!--											</div>-->
+	<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
+
+	<!--											&lt;!&ndash;begin:Menu item&ndash;&gt;-->
+	<!--											<div class="menu-item">-->
+	<!--												&lt;!&ndash;begin:Menu link&ndash;&gt;-->
+	<!--												<a class="menu-link" href="../dist/documents/version-history.html">-->
+	<!--													<span class="menu-bullet">-->
+	<!--														<span class="bullet bullet-dot"></span>-->
+	<!--													</span>-->
+	<!--													<span class="menu-title">Version History</span>-->
+	<!--												</a>-->
+	<!--												&lt;!&ndash;end:Menu link&ndash;&gt;-->
+	<!--											</div>-->
+	<!--											&lt;!&ndash;end:Menu item&ndash;&gt;-->
+											</div>
+											<!--end:Menu sub-->
 										</div>
-										<!--end:Menu sub-->
-									</div>
-									<!--end:Menu item-->
-
-									<!--begin:Chatbot Menu Item-->
-									<div class="menu-item py-2">
-										<!--begin:Menu link-->
-										<a href="{% url 'chatbot:chat_view' %}" class="menu-link menu-center">
-											<span class="menu-icon me-0">
-												<!--begin::Svg Icon: Chatbot icon (you can change SVG if needed)-->
-												<span class="svg-icon svg-icon-2x">
-													<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor" viewBox="0 0 24 24">
-														<path d="M12 2C6.48 2 2 6.03 2 11c0 2.21.89 4.21 2.34 5.76L4 22l5.02-1.67c.95.26 1.96.4 2.98.4 5.52 0 10-4.03 10-9s-4.48-9-10-9zm0 16c-.87 0-1.71-.13-2.5-.37l-.36-.11-2.65.88.9-2.62-.27-.33C6.35 14.07 6 12.9 6 11.5 6 7.91 8.69 5 12 5s6 2.91 6 6.5-2.69 6.5-6 6.5z"/>
-													</svg>
+										<!--begin:Menu item-->
+										<div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
+											<!--begin:Menu link-->
+											<span class="menu-link menu-center">
+												<span class="menu-icon me-0">
+													<!--begin::Svg Icon | path: icons/duotune/communication/com013.svg-->
+													<span class="svg-icon svg-icon-2x">
+														<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+															<path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="currentColor" />
+															<rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="currentColor" />
+														</svg>
+													</span>
+													<!--end::Svg Icon-->
 												</span>
-												<!--end::Svg Icon-->
 											</span>
-										</a>
-										<!--end:Menu link-->
-									</div>
-									<!--end:Chatbot Menu Item-->
+											<!--end:Menu link-->
+											<!--begin:Menu sub-->
+											<div class="menu-sub menu-sub-indention menu-sub-dropdown w-225px px-2 py-4">
+												<!--begin:Menu item-->
+												<div class="menu-item">
+													<!--begin:Menu content-->
+													<div class="menu-content">
+														<span class="menu-section fs-5 fw-bold ps-1 py-1">Account</span>
+													</div>
+													<!--end:Menu content-->
+												</div>
+												<!--end:Menu item-->
+												<!--begin:Menu item-->
+												<div class="menu-item">
+													<!--begin:Menu link-->
+													<a class="menu-link" href="{% url 'account:my_profile_view' %}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+														<span class="menu-title">Overview</span>
+													</a>
+													<!--end:Menu link-->
+												</div>
+												<!--end:Menu item-->
+												<!--begin:Menu item-->
+												<div class="menu-item">
+													<!--begin:Menu link-->
+													<a class="menu-link" href="{% url 'account:user_settings_view' %}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+														<span class="menu-title">Settings</span>
+													</a>
+													<!--end:Menu link-->
+												</div>
+												<!--end:Menu item-->
+
+												<!--begin:Menu item-->
+												<div class="menu-item">
+													<!--begin:Menu link-->
+													<a class="menu-link" href="{% url 'account:user_settings_view' %}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+														<span class="menu-title">Activity</span>
+													</a>
+													<!--end:Menu link-->
+												</div>
+												<!--end:Menu item-->
+
+											</div>
+											<!--end:Menu sub-->
+										</div>
+										<!--end:Menu item-->
+
+										<!--begin:Chatbot Menu Item-->
+										<div class="menu-item py-2">
+											<!--begin:Menu link-->
+											<a href="{% url 'chatbot:chat_view' %}" class="menu-link menu-center">
+												<span class="menu-icon me-0">
+													<!--begin::Svg Icon: Chatbot icon (you can change SVG if needed)-->
+													<span class="svg-icon svg-icon-2x">
+														<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor" viewBox="0 0 24 24">
+															<path d="M12 2C6.48 2 2 6.03 2 11c0 2.21.89 4.21 2.34 5.76L4 22l5.02-1.67c.95.26 1.96.4 2.98.4 5.52 0 10-4.03 10-9s-4.48-9-10-9zm0 16c-.87 0-1.71-.13-2.5-.37l-.36-.11-2.65.88.9-2.62-.27-.33C6.35 14.07 6 12.9 6 11.5 6 7.91 8.69 5 12 5s6 2.91 6 6.5-2.69 6.5-6 6.5z"/>
+														</svg>
+													</span>
+													<!--end::Svg Icon-->
+												</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Chatbot Menu Item-->
+									{% else %}
+										<div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
+											<!--begin:Menu link-->
+											<span class="menu-link menu-center">
+												<span class="menu-icon me-0">
+													<!--begin::Svg Icon | path: icons/duotune/communication/com013.svg-->
+													<span class="svg-icon svg-icon-2x">
+														<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+															<path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="currentColor" />
+															<rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="currentColor" />
+														</svg>
+													</span>
+													<!--end::Svg Icon-->
+												</span>
+											</span>
+											<!--end:Menu link-->
+											<!--begin:Menu sub-->
+											<div class="menu-sub menu-sub-indention menu-sub-dropdown w-225px px-2 py-4">
+												<!--begin:Menu item-->
+												<div class="menu-item">
+													<!--begin:Menu content-->
+													<div class="menu-content">
+														<span class="menu-section fs-5 fw-bold ps-1 py-1">Account</span>
+													</div>
+													<!--end:Menu content-->
+												</div>
+												<!--end:Menu item-->
+												<!--begin:Menu item-->
+												<div class="menu-item">
+													<!--begin:Menu link-->
+													<a class="menu-link" href="{% url 'account:my_profile_view' %}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+														<span class="menu-title">Overview</span>
+													</a>
+													<!--end:Menu link-->
+												</div>
+												<!--end:Menu item-->
+												<!--begin:Menu item-->
+												<div class="menu-item">
+													<!--begin:Menu link-->
+													<a class="menu-link" href="{% url 'account:user_settings_view' %}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+														<span class="menu-title">Settings</span>
+													</a>
+													<!--end:Menu link-->
+												</div>
+												<!--end:Menu item-->
+
+												<!--begin:Menu item-->
+												<div class="menu-item">
+													<!--begin:Menu link-->
+													<a class="menu-link" href="{% url 'account:user_settings_view' %}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+														<span class="menu-title">Activity</span>
+													</a>
+													<!--end:Menu link-->
+												</div>
+												<!--end:Menu item-->
+
+											</div>
+											<!--end:Menu sub-->
+										</div>
+										<!--end:Menu item-->
+
+										<!--begin:Chatbot Menu Item-->
+										<div class="menu-item py-2">
+											<!--begin:Menu link-->
+											<a href="{% url 'chatbot:chat_view' %}" class="menu-link menu-center">
+												<span class="menu-icon me-0">
+													<!--begin::Svg Icon: Chatbot icon (you can change SVG if needed)-->
+													<span class="svg-icon svg-icon-2x">
+														<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="currentColor" viewBox="0 0 24 24">
+															<path d="M12 2C6.48 2 2 6.03 2 11c0 2.21.89 4.21 2.34 5.76L4 22l5.02-1.67c.95.26 1.96.4 2.98.4 5.52 0 10-4.03 10-9s-4.48-9-10-9zm0 16c-.87 0-1.71-.13-2.5-.37l-.36-.11-2.65.88.9-2.62-.27-.33C6.35 14.07 6 12.9 6 11.5 6 7.91 8.69 5 12 5s6 2.91 6 6.5-2.69 6.5-6 6.5z"/>
+														</svg>
+													</span>
+													<!--end::Svg Icon-->
+												</span>
+											</a>
+											<!--end:Menu link-->
+										</div>
+										<!--end:Chatbot Menu Item-->
+									{% endif %}
 
 
 								</div>

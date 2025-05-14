@@ -6,7 +6,7 @@ from langchain_ollama import ChatOllama
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains import ConversationalRetrievalChain
 from langchain_milvus import Milvus
-
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 from .embedding import GTEEmbeddingFunction
 
@@ -44,17 +44,21 @@ def build_qa_chain(retriever):
     """
     Tạo QA chain sử dụng retriever và model Ollama Gemma
     """
+    # Dùng handler để in từng phần trả lời
+    callback_handler = StreamingStdOutCallbackHandler()
+
     # Khởi tạo model Ollama
     llm = ChatOllama(
         model="llama3.1:8b",
         temperature=0,
         streaming=True,
-        base_url="http://localhost:11434"
+        base_url="http://localhost:11434",
+        callbacks=[callback_handler]
     )
 
     # Tạo prompt template
     prompt = ChatPromptTemplate.from_messages([
-        ("system", """Bạn là trợ lý ảo Haoai, chuyên giải đáp những thắc mặc về đại học công nghiệp hà nội.
+        ("system", """Bạn là trợ lý ảo HaOai, chuyên giải đáp những thắc mặc về đại học công nghiệp hà nội.
 
         Hãy sử dụng thông tin từ context để trả lời câu hỏi. Nếu không có thông tin trong context, 
         hãy trả lời trung thực rằng bạn không có đủ thông tin.

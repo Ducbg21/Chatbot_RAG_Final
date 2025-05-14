@@ -19,7 +19,7 @@ def process_document(sender, instance, created, **kwargs):
         instance.status = 'processing'
         instance.save(update_fields=["status"])
 
-        # Tạo document cho Langchain
+        # Tạo document
         langchain_doc = LangchainDocument(
             page_content=instance.content,
             metadata={

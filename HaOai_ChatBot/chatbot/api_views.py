@@ -7,6 +7,7 @@ from .chatbot_qa import build_retriever, build_qa_chain
 
 @login_required
 @require_POST
+@csrf_exempt
 def qa_chatbot_api(request):
     try:
         data = json.loads(request.body)
@@ -24,7 +25,7 @@ def qa_chatbot_api(request):
                 if content:
                     yield content
 
-        return StreamingHttpResponse(generate(), content_type="text/plain")
-
+        # return StreamingHttpResponse(generate(), content_type="text/plain")
+        return StreamingHttpResponse(generate(), content_type="text/event-stream")
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)

@@ -20,7 +20,7 @@
     <meta property="og:url" content="https://keenthemes.com/metronic"/>
     <meta property="og:site_name" content="Keenthemes | Metronic"/>
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8"/>
-    <link rel="shortcut icon" href="{% static 'portal/assets/media/logos/favicon.ico' %}"/>
+    <link rel="shortcut icon" href="{% static 'portal/assets/media/logos/logo_haui_v1.png' %}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700"/>
     <!--end::Fonts-->
@@ -80,13 +80,13 @@
 
                         <!--begin::Toolbar-->
 
-                        <div class="flex-equal text-end ms-1">
-                            {% if request.user.is_authenticated %}
-                                <a href="{% url 'workspace:workspace_view' %}" class="btn btn-danger">Dashboard</a>
-                            {% else %}
-                                <a href="{% url 'account:signin_view' %}" class="btn btn-danger">Signin</a>
-                            {% endif %}
-                        </div>
+<!--                        <div class="flex-equal text-end ms-1">-->
+<!--                            {% if request.user.is_authenticated %}-->
+<!--                                <a href="{% url 'workspace:workspace_view' %}" class="btn btn-danger">Dashboard</a>-->
+<!--                            {% else %}-->
+<!--                                <a href="{% url 'account:signin_view' %}" class="btn btn-danger">Signin</a>-->
+<!--                            {% endif %}-->
+<!--                        </div>-->
                         <!--end::Toolbar-->
                     </div>
                     <!--end::Wrapper-->
@@ -106,7 +106,7 @@
 							</span></h1>
                     <!--end::Title-->
                     <!--begin::Action-->
-                    <a href="../../demo7/dist/index.html" class="btn btn-primary">Try Chatbot</a>
+                    <a href="{% url 'chatbot:chat_view' %}" class="btn btn-primary">Hỏi chatbot</a>
                     <!--end::Action-->
                 </div>
                 <!--end::Heading-->
