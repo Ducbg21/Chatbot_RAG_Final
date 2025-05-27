@@ -13,7 +13,7 @@ def qa_chatbot_api(request):
         data = json.loads(request.body)
         question = data.get("question")
         if not question:
-            return JsonResponse({"error": "Thiếu 'question'"}, status=400)
+            return JsonResponse({"error": "Missing question"}, status=400)
 
         retriever = build_retriever("haui_data")
         qa_chain = build_qa_chain(retriever)
@@ -21,11 +21,10 @@ def qa_chatbot_api(request):
         def generate():
             response = qa_chain.stream({"question": question, "chat_history": []})
             for chunk in response:
-                content = chunk.get("answer", "") or chunk.get("content", "")
+                content = chunk.get("answer", "")
                 if content:
                     yield content
 
-        # return StreamingHttpResponse(generate(), content_type="text/plain")
-        return StreamingHttpResponse(generate(), content_type="text/event-stream")
+        return StreamingHttpResponse(generate(), content_type="text/plain")
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)

@@ -49,7 +49,8 @@ def build_qa_chain(retriever):
 
     # Khởi tạo model Ollama
     llm = ChatOllama(
-        model="llama3.1:8b",
+        # model="llama3.1:8b",
+        model="gemma3:1b",
         temperature=0,
         streaming=True,
         base_url="http://localhost:11434",
@@ -78,20 +79,3 @@ def build_qa_chain(retriever):
     )
 
     return qa_chain
-
-
-def query_qa_chain(qa_chain, question: str, chat_history: list = None):
-    """
-    Hàm để query QA chain với câu hỏi
-    """
-    if chat_history is None:
-        chat_history = []
-
-    result = qa_chain({"question": question, "chat_history": chat_history})
-    return result
-
-
-
-
-
-

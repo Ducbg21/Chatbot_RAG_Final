@@ -165,6 +165,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'HaOai_Chatbot', 'static'),
     os.path.join(BASE_DIR, 'portal', 'static'),
+    os.path.join(BASE_DIR, 'chatbot', 'static'),
 ]
 
 MEDIA_URL = '/media/'
